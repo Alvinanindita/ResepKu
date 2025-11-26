@@ -9,9 +9,7 @@ Aplikasi katalog resep sederhana menggunakan Flutter + Riverpod dengan fitur:
 *Projek ini dibuat untuk memenuhi tugas UTS pada mata kuliah Pemrograman Mobile 2
 
 Dibuat Oleh :
-- Muhammad Fikri Muhaimin
-- Sendi Resfiana
-- Ghefira Zahira Shofa
+Alvina Nindita Nareswari
 
 ---
 
