@@ -1,6 +1,6 @@
 # 🥘Aplikasi Resep Dapurku
 
-Aplikasi katalog resep dapurku sederhana menggunakan Flutter + Riverpod dengan fitur:
+Aplikasi katalog resep dapurku sederhana menggunakan Flutter dengan fitur:
 - Login aplikasi
 - Tambah resep
 - Lihat detail resep
