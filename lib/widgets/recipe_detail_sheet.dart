@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/recipe.dart';
 import '../providers/recipe_providers.dart';
 import '../screens/add_recipe_screen.dart';
+import '../providers/user_provider.dart';
 
 class RecipeDetailSheet extends ConsumerWidget {
   final Recipe recipe;
@@ -18,7 +19,7 @@ class RecipeDetailSheet extends ConsumerWidget {
         ),
         title: const Row(
           children: [
-            Icon(Icons.warning_amber_rounded, color: Colors.red, size: 28),
+            Icon(Icons.warning_amber_rounded, color: Colors.red,size: 28),
             SizedBox(width: 12),
             Text('Hapus Resep?'),
           ],
@@ -150,7 +151,7 @@ class RecipeDetailSheet extends ConsumerWidget {
                   _buildInfoChip(
                     Icons.restaurant,
                     recipe.difficulty,
-                    Colors.green,
+                    Colors.red,
                   ),
                 ],
               ),
@@ -164,7 +165,7 @@ class RecipeDetailSheet extends ConsumerWidget {
                     vertical: 8,
                   ),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFFFE0B2),
+                    color: const Color.fromARGB(255, 30, 205, 117),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
@@ -172,7 +173,7 @@ class RecipeDetailSheet extends ConsumerWidget {
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFFE65100),
+                      color: Colors.white,
                     ),
                   ),
                 ),
@@ -224,7 +225,7 @@ class RecipeDetailSheet extends ConsumerWidget {
                       color: isFavorite ? Colors.red[50] : Colors.grey[100],
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
-                        color: isFavorite ? Colors.red : Colors.grey[300]!,
+                        color: isFavorite ? Colors.green : Colors.grey[300]!,
                       ),
                     ),
                     child: IconButton(
@@ -240,7 +241,7 @@ class RecipeDetailSheet extends ConsumerWidget {
                       },
                       icon: Icon(
                         isFavorite ? Icons.favorite : Icons.favorite_border,
-                        color: isFavorite ? Colors.red : Colors.grey,
+                        color: isFavorite ? Colors.green : Colors.grey,
                       ),
                     ),
                   ),
@@ -283,7 +284,7 @@ class RecipeDetailSheet extends ConsumerWidget {
                       children: [
                         const Icon(
                           Icons.check_circle,
-                          color: Color(0xFFE65100),
+                          color: Color.fromARGB(255, 30, 205, 117),
                           size: 20,
                         ),
                         const SizedBox(width: 8),

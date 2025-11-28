@@ -1,3 +1,5 @@
+// lib/screens/add_recipe_screen.dart
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/recipe.dart';
@@ -28,42 +30,14 @@ class _AddRecipeDialogState extends ConsumerState<AddRecipeDialog> {
 
   // Tambahan ikon makanan baru!
   final List<String> _emojis = [
-    '🍳',
-    '🍝',
-    '🍖',
-    '🥞',
-    '🍲',
-    '🥗',
-    '🍰',
-    '🥙',
-    '🍔',
-    '🍕',
-    '🍜',
-    '🍱',
-    '🥘',
-    '🍛',
-    '🍣',
-    '🥟',
-    '🌮',
-    '🌯',
-    '🥪',
-    '🍩',
-    '🧁',
-    '🍪',
-    '🥧',
-    '🍦',
-    '🥓',
-    '🍗',
-    '🍤',
-    '🦐',
-    '🦞',
-    '🍢',
-    '🍡',
-    '🥮',
+    '🍳', '🍝', '🍖', '🥞', '🍲', '🥗', '🍰', '🥙',
+    '🍔', '🍕', '🍜', '🍱', '🥘', '🍛', '🍣', '🥟',
+    '🌮', '🌯', '🥪', '🍩', '🧁', '🍪', '🥧', '🍦',
+    '🥓', '🍗', '🍤', '🦐', '🦞', '🍢', '🍡', '🥮',
   ];
 
-  static const Color primaryDark = Color(0xFFE65100);
-  static const Color primaryMain = Color(0xFFFF6F00);
+  static const Color primaryDark = Color.fromARGB(255, 30, 205, 117); // #1ECD75 (Aksen Cerah/Fresh)
+  static const Color primaryMain = Color(0xFF4A9969); // Hijau Hutan/Dasar
 
   @override
   void initState() {
@@ -103,20 +77,21 @@ class _AddRecipeDialogState extends ConsumerState<AddRecipeDialog> {
           .where((e) => e.isNotEmpty)
           .toList();
 
-      // Logika Baru untuk Waktu Memasak
-      // Pastikan input adalah angka, lalu tambahkan ' menit'
+      // Logika untuk Waktu Memasak
       final rawCookTime = _cookTimeController.text.trim();
       final cookTime = rawCookTime.isNotEmpty
           ? '$rawCookTime menit'
-          : '0 menit'; // Pastikan ada nilai default
+          : '0 menit'; 
 
       if (widget.recipe != null) {
-        // Edit mode
+        // ===================================
+        // ✨ LOGIKA EDIT MODE DENGAN HISTORY
+        // ===================================
         final updatedRecipe = widget.recipe!.copyWith(
           name: _nameController.text,
           category: _selectedCategory,
           image: _selectedEmoji,
-          cookTime: cookTime, // Menggunakan variabel cookTime yang sudah diformat
+          cookTime: cookTime,
           difficulty: _selectedDifficulty,
           description: _descriptionController.text,
           ingredients: ingredientsList,
@@ -126,7 +101,24 @@ class _AddRecipeDialogState extends ConsumerState<AddRecipeDialog> {
           return r.id == updatedRecipe.id ? updatedRecipe : r;
         }).toList();
 
+        // 1. Update daftar resep utama
         ref.read(recipesProvider.notifier).state = updatedRecipes;
+
+        // 2. Update History Provider
+        final history = ref.read(historyProvider);
+        
+        // Buat daftar riwayat baru:
+        // a. Masukkan resep yang baru diedit di awal.
+        // b. Filter riwayat lama untuk menghapus duplikat dari resep ini (agar yang terbaru selalu di depan).
+        final newHistory = [
+          updatedRecipe,
+          ...history.where((r) => r.id != updatedRecipe.id),
+        ];
+
+        // Batasi riwayat menjadi 10 item terbaru
+        final limitedHistory = newHistory.length > 10 ? newHistory.sublist(0, 10) : newHistory;
+
+        ref.read(historyProvider.notifier).state = limitedHistory;
 
         Navigator.pop(context);
 
@@ -145,9 +137,11 @@ class _AddRecipeDialogState extends ConsumerState<AddRecipeDialog> {
           ),
         );
       } else {
-        // Add mode
-        // Asumsi Recipe id dihitung berdasarkan panjang list. Ini mungkin tidak ideal untuk aplikasi nyata,
-        // tapi sesuai dengan implementasi Anda.
+        // ===================================
+        // LOGIKA ADD MODE (TAMBAH RESEP BARU)
+        // ===================================
+        
+        // Asumsi Recipe id dihitung berdasarkan panjang list.
         final newId = (recipes.length + 1).toString();
 
         final newRecipe = Recipe(
@@ -155,7 +149,7 @@ class _AddRecipeDialogState extends ConsumerState<AddRecipeDialog> {
           name: _nameController.text,
           category: _selectedCategory,
           image: _selectedEmoji,
-          cookTime: cookTime, // Menggunakan variabel cookTime yang sudah diformat
+          cookTime: cookTime, 
           difficulty: _selectedDifficulty,
           description: _descriptionController.text,
           ingredients: ingredientsList,

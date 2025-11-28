@@ -13,7 +13,7 @@ class CategoryChip extends StatelessWidget {
   });
 
   // Definisikan warna yang digunakan
-  static const Color primaryColor = Color(0xFFFF6F00); // Oranye utama
+  static const Color primaryColor = Color.fromARGB(255, 30, 205, 117); // Oranye utama
 
   @override
   Widget build(BuildContext context) {

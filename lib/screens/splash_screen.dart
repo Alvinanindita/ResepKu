@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_catalog/screens/main_tab_screen.dart';
 import 'home_screen.dart';
+import 'login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -46,7 +48,7 @@ class _SplashScreenState extends State<SplashScreen>
           context,
           PageRouteBuilder(
             pageBuilder: (context, animation, secondaryAnimation) =>
-                const RecipeHomePage(),
+                const LoginScreen(),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {
               return FadeTransition(opacity: animation, child: child);
@@ -73,8 +75,8 @@ class _SplashScreenState extends State<SplashScreen>
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Colors.orange[400]!,
-              Colors.orange[700]!,
+              Colors.green[400]!,
+              Colors.green[700]!,
             ],
           ),
         ),
@@ -88,7 +90,7 @@ class _SplashScreenState extends State<SplashScreen>
                 children: [
                   // 📖 Ikon tanpa background
                   Text(
-                    '📖',
+                    '🥘',
                     style: TextStyle(
                       fontSize: 100,
                       shadows: [
@@ -103,7 +105,7 @@ class _SplashScreenState extends State<SplashScreen>
                   SizedBox(height: 30),
                   // Judul
                   Text(
-                    'MyRecipe',
+                    'Resep Dapurku',
                     style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
