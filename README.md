@@ -3,6 +3,8 @@
 Aplikasi katalog resep dapurku sederhana menggunakan Flutter dengan fitur:
 - Login aplikasi
 - Tambah resep
+- Edit Resep
+- Hapus Resep
 - Lihat detail resep
 - Filter kategori
 - Riwayat edit resep
